@@ -89,7 +89,7 @@ namespace ClinicAppointment.Controllers
             }
             return View(appointment);
         }
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
