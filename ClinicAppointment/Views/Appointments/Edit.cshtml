@@ -1,0 +1,41 @@
+﻿@model ClinicAppointment.Models.Appointment
+
+<h2 class="text-center mt-4" style="color: #d37afc;">Edit Appointment</h2>
+
+<div class="p-4 rounded shadow-sm bg-light">
+    <form asp-action="Edit" class="p-3">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group mb-3">
+            <label asp-for="Name" class="form-label font-weight-bold" style="color: #d37afc;">Full Name</label>
+            <input asp-for="Name" class="form-control rounded-pill" placeholder="Enter full name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="PhoneNumber" class="form-label font-weight-bold" style="color: #d37afc;">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control rounded-pill" placeholder="Enter phone number" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group mb-3">
+                <label asp-for="Date" class="form-label font-weight-bold" style="color: #d37afc;">Appointment Date</label>
+                <input asp-for="Date" class="form-control rounded-pill" type="date" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-group mb-3">
+                <label asp-for="Time" class="form-label font-weight-bold" style="color: #d37afc;">Appointment Time</label>
+                <input asp-for="Time" class="form-control rounded-pill" type="time" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group mb-4">
+            <label asp-for="IsOldPatient" class="form-label font-weight-bold" style="color: #d37afc;">Patient Type</label>
+            <select asp-for="IsOldPatient" class="form-control rounded-pill">
+                <option value="true">Old Patient</option>
+                <option value="false">New Patient</option>
+            </select>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn" style="background-color: #d37afc; color: white; border-radius: 50px; padding: 10px 0;">Save Changes</button>
+        </div>
+    </form>
+</div>
