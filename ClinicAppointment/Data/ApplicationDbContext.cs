@@ -10,5 +10,17 @@ namespace ClinicAppointment.Data
 
         public DbSet<Appointment> Appointments { get; set; }
 
+        public DbSet<Payment> Payments { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Payment>()
+                .Property(p => p.AmountPaid)
+                .HasColumnType("decimal(18,2)"); // Specifies precision 18 and scale 2
+
+            modelBuilder.Entity<Payment>()
+                .Property(p => p.TreatmentCost)
+                .HasColumnType("decimal(18,2)"); // Specifies precision 18 and scale 2
+        }
+
     }
 }

@@ -80,6 +80,7 @@ namespace ClinicAppointment.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var appointment = await _context.Appointments.FindAsync(id);
