@@ -1,14 +1,18 @@
 using ClinicAppointment.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//                options.UseSqlServer(builder.Configuration.GetConnectionString("MySqlDb")));
 
+var connectionString = builder.Configuration.GetConnectionString("MySqlDb");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySQL(connectionString));
 
 var app = builder.Build();
 
