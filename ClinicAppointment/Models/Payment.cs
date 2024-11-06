@@ -18,7 +18,7 @@ namespace ClinicAppointment.Models
         public decimal AmountBalance => TreatmentCost - AmountPaid;
         public bool IsOldPatient { get; set; }
 
-        public DateOnly CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
 
     }

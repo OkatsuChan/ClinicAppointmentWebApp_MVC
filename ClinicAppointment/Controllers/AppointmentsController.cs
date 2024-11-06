@@ -1,4 +1,4 @@
-﻿using ClinicAppointment.Data;
+﻿ using ClinicAppointment.Data;
 using ClinicAppointment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
