@@ -17,7 +17,8 @@ namespace ClinicAppointment.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Payments.ToListAsync());
+            return View(await _context.GetAllPayment());
+            //return View(await _context.Payments.ToListAsync());
         }
 
 

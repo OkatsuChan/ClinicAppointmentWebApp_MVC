@@ -21,6 +21,10 @@ namespace ClinicAppointment.Data
                 .Property(p => p.TreatmentCost)
                 .HasColumnType("decimal(18,2)"); // Specifies precision 18 and scale 2
         }
+        public async Task<List<Payment>> GetAllPayment()
+        {
+            return await Payments.FromSqlInterpolated($"EXEC GetAllPayments;").ToListAsync();
+        }
 
     }
 }
