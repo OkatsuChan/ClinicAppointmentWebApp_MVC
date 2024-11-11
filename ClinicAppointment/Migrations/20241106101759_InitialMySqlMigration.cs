@@ -40,10 +40,11 @@ namespace ClinicAppointment.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     PatientName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    TypeofPayment = table.Column<int>(type: "int", nullable: false),
                     TreatmentCost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     AmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsOldPatient = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -16,9 +16,11 @@ namespace ClinicAppointment.Controllers
         }
 
 
-        public ActionResult ExportToExcel()
+        public ActionResult GenerateReport(DateTime startDate, DateTime endDate)
         {
-            var payments = _context.Payments.ToList();
+            var payments = _context.Payments
+               .Where(p => p.CreatedDate.Date >= startDate.Date && p.CreatedDate.Date <= endDate.Date)
+               .ToList();
 
             using (var workbook = new XLWorkbook())
             {
@@ -33,6 +35,7 @@ namespace ClinicAppointment.Controllers
                 worksheet.Cell(1, 6).Value = "Created Date";
 
                 // Insert data into rows
+                decimal totalIncome = 0;
                 int row = 2;
                 foreach (var payment in payments)
                 {
@@ -42,8 +45,26 @@ namespace ClinicAppointment.Controllers
                     worksheet.Cell(row, 4).Value = payment.AmountBalance;
                     worksheet.Cell(row, 5).Value = payment.IsOldPatient ? "Yes" : "No";
                     worksheet.Cell(row, 6).Value = payment.CreatedDate.ToString("yyyy-MM-dd");
+
+                    // Add TreatmentCost, subtract AmountBalance if it exists and is greater than 0
+                    if (payment.AmountBalance > 0)
+                    {
+                        totalIncome += payment.TreatmentCost - payment.AmountBalance;
+                    }
+                    else
+                    {
+                        totalIncome += payment.TreatmentCost;
+                    }
+
                     row++;
                 }
+
+                row++;
+                
+                // Add a row for the total income
+                worksheet.Cell(row, 1).Value = "Total Income";
+                worksheet.Cell(row, 2).Value = totalIncome;
+                worksheet.Range(row, 1, row, 2).Style.Font.Bold = true;
 
                 // Adjust column widths
                 worksheet.Columns().AdjustToContents();
@@ -53,11 +74,13 @@ namespace ClinicAppointment.Controllers
                 {
                     workbook.SaveAs(stream);
                     var content = stream.ToArray();
+                    string fileName = $"Clinic_Transaction_Reports_{startDate:yyyyMMdd}_to_{endDate:yyyyMMdd}.xlsx";
+
 
                     return File(
                         content,
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        "Payments.xlsx"
+                        $"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        fileName
                     );
                 }
             }

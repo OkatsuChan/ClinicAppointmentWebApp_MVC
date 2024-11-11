@@ -4,14 +4,15 @@
     <h4 class="mb-4" style="color: #4a4a4a;">Are you sure you want to remove this transaction?</h4>
     <div class="bg-white p-3 rounded mb-4">
         <h5 style="color: #d37afc;">@Model.PatientName</h5>
-        <p><strong>Cost of Treatment:</strong> @Model.TreatmentCost</p>
-        <p><strong>Amount Paid:</strong> @Model.AmountPaid</p>
-        <p><strong>Balance:</strong> @Model.AmountBalance</p>
+        <p><strong>Cost of Treatment:</strong> @Model.TreatmentCost.ToString("C")</p>
+        <p><strong>Amount Paid:</strong> @Model.AmountPaid.ToString("C")</p>
+        <p><strong>Balance:</strong> @Model.AmountBalance.ToString("C")</p>
+        <p><strong>Type of Payment:</strong> @Model.TypeofPayment</p> <!-- Display Type of Payment -->
         <p><strong>Patient Type:</strong> @(Model.IsOldPatient ? "Old" : "New")</p>
         <p><strong>Date:</strong> @Model.CreatedDate.ToShortDateString()</p>
     </div>
 
-    <form asp-action="DeletePaymentConfirmed" class="d-inline-block">
+    <form asp-action="DeletePaymentConfirmed" method="post" class="d-inline-block">
         <input type="hidden" asp-for="Id" />
         <button type="submit" class="btn btn-outline-danger">Delete</button>
     </form>

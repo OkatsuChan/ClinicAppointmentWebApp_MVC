@@ -57,8 +57,8 @@ namespace ClinicAppointment.Migrations
                     b.Property<decimal>("AmountPaid")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateOnly>("CreatedDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<bool>("IsOldPatient")
                         .HasColumnType("tinyint(1)");
@@ -70,6 +70,9 @@ namespace ClinicAppointment.Migrations
 
                     b.Property<decimal>("TreatmentCost")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TypeofPayment")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
