@@ -16,11 +16,18 @@ namespace ClinicAppointment.Controllers
         }
 
 
-        public ActionResult GenerateReport(DateTime startDate, DateTime endDate)
+        public ActionResult GenerateReport(DateTime startDate, DateTime endDate , PaymentType paymentOptions)
         {
             var payments = _context.Payments
-               .Where(p => p.CreatedDate.Date >= startDate.Date && p.CreatedDate.Date <= endDate.Date)
-               .ToList();
+                .Where(p => p.CreatedDate.Date >= startDate.Date && p.CreatedDate.Date <= endDate.Date);
+
+            // If a specific payment type is selected, filter by that type
+            if (paymentOptions != PaymentType.None)  // Only filter if the option is not 'All'
+            {
+                payments = payments.Where(p => p.TypeofPayment == paymentOptions);
+            }
+
+            var paymentList = payments.ToList();
 
             using (var workbook = new XLWorkbook())
             {
@@ -74,7 +81,7 @@ namespace ClinicAppointment.Controllers
                 {
                     workbook.SaveAs(stream);
                     var content = stream.ToArray();
-                    string fileName = $"Clinic_Transaction_Reports_{startDate:yyyyMMdd}_to_{endDate:yyyyMMdd}.xlsx";
+                    string fileName = $"Clinic_Transaction_Reports_{startDate:yyyyMMdd}_to_{endDate:yyyyMMdd}-{paymentOptions}.xlsx";
 
 
                     return File(

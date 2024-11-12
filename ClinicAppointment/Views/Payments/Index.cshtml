@@ -73,6 +73,15 @@
                         <label for="endDate" class="form-label">End Date:</label>
                         <input type="date" id="endDate" name="endDate" class="form-control" required />
                     </div>
+                    <div class="mb-3">
+                        <label for="paymentOptions" class="form-label">Type of Payment:</label>
+                        <select id="paymentOptions" name="paymentOptions" class="form-control" required>
+                            @foreach (var paymentType in Enum.GetValues(typeof(PaymentType)).Cast<PaymentType>())
+                            {
+                                <option value="@paymentType">@paymentType</option>
+                            }
+                        </select>
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -83,4 +92,3 @@
         </div>
     </div>
 </div>
-

@@ -5,7 +5,8 @@ namespace ClinicAppointment.Models
     public enum PaymentType
     {
         Cash,
-        EPayment
+        EPayment,
+        None
     }
 
     public class Payment
